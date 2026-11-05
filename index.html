@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Koppula Jayendra Reddy — iOS Application Developer</title>
 <meta name="description" content="Koppula Jayendra Reddy is an iOS Application Developer with 3 years of native iOS experience in Swift and UIKit, REST API integration, and healthcare, employee and enterprise apps. Also working with Flutter and Dart.">
 <meta name="author" content="Koppula Jayendra Reddy">
@@ -217,6 +217,7 @@ footer{background:var(--ink);color:#a5a7af;border-top:1px solid #34363e;padding:
 .reveal.in{opacity:1;transform:none}
 .no-js .reveal{opacity:1;transform:none}
 
+.tabbar,.appbar-dl{display:none}
 /* Responsive */
 @media (max-width:980px){
   .project{grid-template-columns:1fr}
@@ -227,27 +228,87 @@ footer{background:var(--ink);color:#a5a7af;border-top:1px solid #34363e;padding:
   .cards{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:12px}
 }
 @media (max-width:860px){
-  .burger{display:flex}
-  .nav__links{position:fixed;inset:68px 0 auto 0;background:var(--bg);flex-direction:column;align-items:stretch;gap:0;padding:8px var(--gutter) 28px;border-bottom:1px solid var(--line);transform:translateY(-12px);opacity:0;visibility:hidden;transition:opacity .25s,transform .25s,visibility .25s;max-height:calc(100vh - 68px);overflow:auto}
-  .nav__links.open{opacity:1;transform:none;visibility:visible}
-  .nav__links a.link{font-size:20px;font-weight:600;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--line)}
-  .nav__links a.link::after{display:none}
-  .nav__links .btn{margin-top:20px}
+  /* ---- Mobile app shell ---- */
+  html{scroll-padding-top:76px}
+  body{background:#eceae3;font-size:16px;padding-bottom:calc(96px + env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
+  a,button{-webkit-tap-highlight-color:transparent}
+
+  /* Top app bar */
+  .nav{padding-top:env(safe-area-inset-top);background:rgba(236,234,227,.86);border-bottom-color:rgba(222,218,205,.7)}
+  .nav.scrolled{background:rgba(236,234,227,.94)}
+  .nav__in{height:56px;padding:0 16px}
+  .burger,.nav__links{display:none}
+  .logo{font-size:13px}
+  .appbar-dl{display:inline-flex;width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;align-items:center;justify-content:center;transition:transform .15s}
+  .appbar-dl svg{width:18px;height:18px}
+  .appbar-dl:active{transform:scale(.9)}
+
+  /* Bottom tab bar */
+  .tabbar{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:120;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;padding:6px;background:rgba(251,250,246,.92);-webkit-backdrop-filter:blur(18px) saturate(180%);backdrop-filter:blur(18px) saturate(180%);border:1px solid var(--line);border-radius:26px;box-shadow:0 14px 34px -12px rgba(23,24,28,.4)}
+  .tabbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;border-radius:20px;font-size:10px;font-weight:600;letter-spacing:.01em;color:var(--muted);transition:background .2s,color .2s,transform .15s}
+  .tabbar a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .tabbar a:active{transform:scale(.92)}
+  .tabbar a.active{color:var(--accent);background:var(--accent-soft)}
+
+  /* Sections become app cards */
+  main > section{padding:10px 0!important;background:none;border:0}
+  main > section > .wrap{width:auto;max-width:none;margin:0 12px;padding:26px 18px!important;background:var(--surface);border:1px solid var(--line);border-radius:28px;box-shadow:0 12px 30px -24px rgba(23,24,28,.4)}
+  main > section.alt{background:none}
+  main > section.contact{background:none}
+  main > section.contact > .wrap{background:var(--ink);border-color:var(--ink)}
+  .sec-head{margin-bottom:24px;gap:12px}
+  .sec-head h2{font-size:clamp(28px,8.4vw,40px)}
   .about,.exp,.edu{grid-template-columns:1fr}
-  .facts{grid-template-columns:repeat(2,1fr)}
-  .fact{padding-left:0;border-right:0;padding-bottom:18px;border-bottom:1px solid var(--line)}
-  .fact:nth-child(odd){padding-right:16px}
-  .fact:nth-child(even){padding-left:16px;border-left:1px solid var(--line)}
-  .fact:nth-last-child(-n+2){border-bottom:0}
+  .exp,.edu{gap:20px}
+
+  /* Hero */
+  .hero h1{font-size:clamp(40px,13vw,64px);margin-top:20px}
+  .hero__role{margin-top:20px}
+  .hero__cta{flex-direction:column;margin-top:26px}
+  .hero__cta .btn,.contact__cta .btn{width:100%;flex:none;min-height:54px;border-radius:18px;font-size:16px}
+  .btn:active{transform:scale(.98)}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;border-top:0;margin-top:30px}
+  .facts .fact{padding:14px!important;background:var(--bg);border:1px solid var(--line)!important;border-radius:18px}
+  .fact__n{font-size:clamp(20px,6vw,26px)}
+  .fact__l{font-size:12.5px}
+
+  /* Lists inside cards */
+  .exp,.project,.edu{border-top-color:var(--line)}
+  .project{grid-template-columns:1fr;gap:20px;padding:26px 0}
+  .project:first-of-type{border-top:0;padding-top:4px}
+  .project:last-of-type{border-bottom:0;padding-bottom:0}
+  .project__num{font-size:72px}
+  .panel{background:var(--bg);padding:18px;border-radius:20px;box-shadow:none}
+  .panel+.panel{margin-top:12px}
+  .groups{grid-template-columns:1fr;gap:20px}
+  .chip{font-size:13px;padding:7px 11px;border-radius:10px}
+  .project__link{width:100%;min-height:54px;border-radius:18px;font-size:16px}
+
+  /* Skills as tiles */
+  .skills{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;border-top:0}
+  .skills .skill{padding:16px!important;background:var(--bg);border:1px solid var(--line)!important;border-radius:18px}
+  .skills .skill:last-child{grid-column:1/-1}
+  .skill ul{margin-top:12px}
+  .skill li{font-size:16px;line-height:1.55}
+
+  /* Contact */
+  .contact__cta{flex-direction:column}
+  .cards{grid-template-columns:1fr;gap:10px;border-top:0;margin-top:34px}
+  .cards div{padding:14px 16px;background:rgba(255,255,255,.06);border:1px solid #3a3c45;border-radius:18px}
+
+  /* Footer */
+  footer{margin:10px 12px 0;border-radius:24px;border-top:0}
+  .foot{flex-direction:column;align-items:flex-start;padding:4px 6px}
+  .foot__r{width:100%;justify-content:space-between}
+  .totop{min-height:44px}
 }
-@media (max-width:560px){
-  body{font-size:16px}
-  .groups{grid-template-columns:1fr}
-  .skills{grid-template-columns:1fr}
-  .skill,.skill:nth-child(2n),.skill:nth-child(3n+2),.skill:nth-child(3n){padding:24px 0;border-left:0}
-  .cards{grid-template-columns:1fr}
-  .hero__cta .btn,.contact__cta .btn{flex:1 1 100%}
-  .hero h1 .outline{-webkit-text-stroke-width:1px}
+@media (hover:none){
+  .btn:hover{transform:none}
+  .project:hover .project__num{transform:none}
+}
+@media (max-width:380px){
+  .tabbar a{font-size:9px}
+  main > section > .wrap{padding:22px 14px!important}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -276,6 +337,9 @@ footer{background:var(--ink);color:#a5a7af;border-top:1px solid #34363e;padding:
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7.5 8 11.5l4-4M2.5 14h11"/></svg>
       </a>
     </nav>
+    <a class="appbar-dl" href="./resume.pdf" download data-resume aria-label="Download resume">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v9M4 7.5 8 11.5l4-4M2.5 14h11"/></svg>
+    </a>
   </div>
 </header>
 
@@ -548,6 +612,15 @@ footer{background:var(--ink);color:#a5a7af;border-top:1px solid #34363e;padding:
   </div>
 </footer>
 
+<nav class="tabbar" aria-label="App navigation">
+  <a href="#home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8M5 10v10h14V10"/></svg>Home</a>
+  <a href="#about"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>About</a>
+  <a href="#experience"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg>Work</a>
+  <a href="#projects"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Projects</a>
+  <a href="#skills"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 5l-4 14"/></svg>Skills</a>
+  <a href="#contact"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Contact</a>
+</nav>
+
 <script>
 (function () {
   'use strict';
@@ -604,9 +677,9 @@ footer{background:var(--ink);color:#a5a7af;border-top:1px solid #34363e;padding:
   window.addEventListener('scroll', onScroll, { passive: true });
 
   /* Active section link */
-  var links = Array.prototype.slice.call(d.querySelectorAll('.nav__links a.link'));
+  var links = Array.prototype.slice.call(d.querySelectorAll('.nav__links a.link, .tabbar a'));
   var map = {};
-  links.forEach(function (l) { map[l.getAttribute('href').slice(1)] = l; });
+  links.forEach(function (l) { var k = l.getAttribute('href').slice(1); (map[k] = map[k] || []).push(l); });
   if ('IntersectionObserver' in window) {
     var spy = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -614,7 +687,7 @@ footer{background:var(--ink);color:#a5a7af;border-top:1px solid #34363e;padding:
           links.forEach(function (l) { l.classList.remove('active'); });
           var id = en.target.id;
           if (id === 'education') id = 'skills';
-          if (map[id]) map[id].classList.add('active');
+          if (map[id]) map[id].forEach(function (l) { l.classList.add('active'); });
         }
       });
     }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
